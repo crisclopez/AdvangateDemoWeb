@@ -1,0 +1,54 @@
+group 'co.com.bancolombia.certificacion'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+repositories {
+    maven {
+        url "https://artifactory.apps.bancolombia.com/maven-bancolombia"  }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://artifactory.apps.bancolombia.com/maven-bancolombia" }
+    }
+
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.40")
+    }
+}
+
+ext{
+    serenityVersion = '2.0.83'
+    serenityCucumberVersion = '1.9.47'
+}
+
+dependencies {
+
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
+    testImplementation 'org.assertj:assertj-core:1.7.0'
+    testImplementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
+    testImplementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
+    implementation(group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17')
+    implementation(group: 'org.apache.poi', name: 'poi', version: '3.17')
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.6.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.6.1'
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.11'
+    implementation "com.mastercard.developer:client-encryption:1.4.0"
+    compile(group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0')
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay-rest', version:'2.0.15'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+    implementation group: 'org.jdbi', name: 'jdbi3-core', version: '3.6.0'
+    implementation group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+    implementation group: 'net.sf.jt400', name: 'jt400', version: '9.6'
+    implementation group: 'p6spy', name: 'p6spy', version: '3.7.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.14'
+
+}
+gradle.startParameter.continueOnFailure = true 
